@@ -12,7 +12,7 @@ source("www/resource_files.R")  # Ensure this path is correct relative to your a
 
 # Define the UI for the Shiny Dashboard
 ui <- dashboardPage(
-  dashboardHeader(title = "GrowthGuard", titleWidth = 350),
+  dashboardHeader(title = "Growth Guard", titleWidth = 350),
   dashboardSidebar(
     width = 350,
     sidebarMenu(
