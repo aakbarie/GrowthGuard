@@ -1,0 +1,83 @@
+/* Main dashboard background color */
+body {
+  background-color: #024950 !important; /* Set the main app body to medium teal */
+}
+
+/* Header styles */
+.main-header .logo {
+  background-color: #003135; /* Dark teal color */
+  color: #FFFFFF;
+  font-weight: bold !important; /* Make the title bold */
+}
+
+.main-header .navbar {
+  background-color: #003135; /* Medium teal color */
+}
+
+/* Sidebar styles */
+.main-sidebar {
+  background-color: #AFDDE5 !important; /* Light blue background for sidebar */
+}
+
+/* Sidebar menu item styles - Ensures text is white */
+.main-sidebar .sidebar-menu > li > a {
+  color: #FFFFFF !important; /* White text color */
+}
+
+/* Sidebar icon color */
+.main-sidebar .sidebar-menu > li > a .menu-icon {
+  color: #FFFFFF !important; /* Ensure icon color is white */
+}
+
+/* Hover and focus styles for sidebar menu items */
+.main-sidebar .sidebar-menu > li > a:hover,
+.main-sidebar .sidebar-menu > li > a:focus {
+  color: #FFFFFF !important; /* Keep text white on hover and focus */
+}
+
+/* Active tab highlighting */
+.main-sidebar .sidebar-menu > li.active > a {
+  background-color: #0FA4AF !important; /* Bright cyan background for active item */
+  color: #FFFFFF !important; /* Keep text white */
+}
+
+/* Main body content styles */
+.content-wrapper, .right-side, .main-footer {
+  background-color: #024950 !important; /* Medium teal background for app body */
+  color: #000000 !important; /* Set main text color to black for readability */
+}
+
+/* Box and content styles */
+.box {
+  border-top: 2px solid #0FA4AF; /* Border color for boxes */
+}
+
+.box-header {
+  background-color: #024950; /* Medium teal color */
+  color: #000000 !important; /* Set box header text to black */
+}
+
+/* Button styles */
+.btn-primary {
+  background-color: #0FA4AF; /* Bright cyan color */
+  border-color: #0FA4AF;
+}
+
+.btn-warning {
+  background-color: #964734; /* Reddish-brown color */
+  border-color: #964734;
+}
+
+.btn-success {
+  background-color: #024950; /* Medium teal color */
+  border-color: #024950;
+}
+
+/* Text and heading styles */
+h1, h2, h3, h4, h5, h6 {
+  color: #000000 !important; /* Set headings to black */
+}
+
+p, label, span {
+  color: #000000 !important; /* Set all body text to black */
+}
