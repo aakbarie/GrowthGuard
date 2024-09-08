@@ -18,7 +18,7 @@ mydataM[,cols] = apply(mydataM[,cols], 2, function(x) as.numeric(as.character(x)
 attach(mydataM)
 par(mgp = c(3, 1, 0))
 plot(lowess(Agemos, P3, f=.01), type="l", ylim=c(79, 191), xlim=c(24, 240), lwd=2, axes=F, xlab = "", ylab = "")
-title(main="The Growth Charts for Saudi Children and Adolescents \n Endorsed by The Health Services Council of Saudi Arabia No.29 (24/6/2007)", 
+title(main="Growth Charts for Children and Adolescents", 
       ylab="Stature (cm)", xlab="Stature (cm)")
 mtext("3 to 20 years, Boys", cex=.95, font=3, col="red")
 

@@ -19,8 +19,3 @@ load("R/Posts/Growth/data/mydata2m.rda")
 load("R/Posts/Growth/data/mydata1f.rda")
 load("R/Posts/Growth/data/mydata1m.rda")
 
-# Load CSV files
-hg_60 <- read.csv("R/Posts/Growth/data/hg_60.csv")
-wg_60 <- read.csv("R/Posts/Growth/data/wg_60.csv")
-wg_5 <- read.csv("R/Posts/Growth/data/wg_5.csv")
-hg_5 <- read.csv("R/Posts/Growth/data/hg_5.csv")

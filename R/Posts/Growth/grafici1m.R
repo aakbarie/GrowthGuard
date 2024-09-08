@@ -18,7 +18,7 @@ mydataM[,cols] = apply(mydataM[,cols], 2, function(x) as.numeric(as.character(x)
 attach(mydataM)
 par(mgp = c(3, 1, 0))
 plot(lowess(Agemos, P3, f=.01), type="l", ylim=c(2,18), lwd=2, axes=F, xlab = "", ylab = "")
-title(main="The Growth Charts for Children and Adolescents", 
+title(main="Growth Charts for Children and Adolescents", 
       xlab="Age (Months)", ylab="Weight (kg)")
 mtext("Weight-for-age percentiles: boys, birth to 60 months", cex=.95, font=3, col="red")
 

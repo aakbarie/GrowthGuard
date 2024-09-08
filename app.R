@@ -30,7 +30,7 @@ ui <- dashboardPage(
         tabName = "home",
         fluidRow(
           box(
-            title = "Welcome to GrowthGuard", 
+            title = "Welcome to Growth Guard - CDC-WHO Growth Charts", 
             width = 12, 
             solidHeader = TRUE, 
             status = "primary",
