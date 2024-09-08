@@ -2,7 +2,7 @@
 
 **GrowthGuard** is an interactive Shiny application designed to help parents and caregivers track their child's growth using personalized growth charts based on CDC-WHO standards. This user-friendly app allows you to input your child's height, weight, and other relevant data to generate detailed growth charts. The app is designed to be simple enough for anyone to use, with a focus on privacy and ease of access.
 
-![GrowthGuard](https://github.com/yourusername/GrowthGuard/assets/banner.png) 
+![GrowthGuard](https://github.com/aakbarie/GrowthGuard/assets/banner.png) 
 
 ## Features
 
@@ -13,7 +13,7 @@
 
 ## App Preview
 
-![App Screenshot](https://github.com/yourusername/GrowthGuard/assets/app_screenshot.png)
+![App Screenshot](https://github.com/aakbarie/GrowthGuard/assets/app_screenshot.png)
 
 ## Installation
 
@@ -22,7 +22,7 @@ To run the GrowthGuard app locally, follow these steps:
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/yourusername/GrowthGuard.git
+   git clone https://github.com/aakbarie/GrowthGuard.git
    ```
 
 2. **Navigate to the Project Directory:**
@@ -45,7 +45,7 @@ To run the GrowthGuard app locally, follow these steps:
    Open `app.R` in RStudio and click "Run App" or use the command below in your R console:
 
    ```r
-   shiny::runApp('path_to_your_app')
+   shiny::runApp('app.R')
    ```
 
 ## Usage Guide
@@ -60,11 +60,11 @@ To run the GrowthGuard app locally, follow these steps:
 
 ### Home Page
 
-![Home Page](https://github.com/yourusername/GrowthGuard/assets/home_screenshot.png)
+![Home Page](https://github.com/aakbarie/GrowthGuard/assets/home_screenshot.png)
 
 ### Growth Chart Page
 
-![Growth Chart](https://github.com/yourusername/GrowthGuard/assets/growth_chart_screenshot.png)
+![Growth Chart](https://github.com/aakbarie/GrowthGuard/assets/growth_chart_screenshot.png)
 
 ## Contributing
 
