@@ -130,6 +130,11 @@ body {
 .main-header .logo .logo-lg,
 .main-header .logo .logo-mini { color: #ffffff !important; }
 
+/* GitHub link in header should be white */
+.main-header .navbar .github-link,
+.main-header .navbar .github-link .fa,
+.main-header .navbar .github-link span { color: #ffffff !important; }
+
 /* Mid-Century Modern Sidebar */
 .main-sidebar {
   background: linear-gradient(180deg, var(--neutral-100), var(--neutral-200));
