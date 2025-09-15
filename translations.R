@@ -1,18 +1,18 @@
-# GrowthGuard Multi-language Support
+# Casusalatics Growth Guard Multi-language Support
 # Medical translations reviewed by certified medical interpreters
 
 # Language definitions
 translations <- list(
   en = list(
     # App Title and Navigation
-    app_title = "GrowthGuard",
+    app_title = "Casusalatics Growth Guard",
     nav_welcome = "Welcome",
     nav_tracker = "Growth Tracker",
     nav_about = "About",
     nav_medical_info = "Medical Information",
 
     # Hero Section
-    hero_title = "Welcome to GrowthGuard",
+    hero_title = "Welcome to Casusalatics Growth Guard",
     hero_subtitle = "Track your child's growth with confidence using CDC-WHO standards",
     hero_cta = "Start Tracking Growth",
 
@@ -94,7 +94,7 @@ translations <- list(
     validation_fill_all_fields = "Please fill in all required fields before continuing",
 
     # About Section
-    about_title = "About GrowthGuard",
+    about_title = "About Casusalatics Growth Guard",
     data_sources_title = "Data Sources",
     data_sources_desc = "Our growth charts are based on:",
     privacy_security_title = "Privacy & Security",
@@ -111,14 +111,14 @@ translations <- list(
 
   es = list(
     # App Title and Navigation
-    app_title = "GrowthGuard",
+    app_title = "Casusalatics Growth Guard",
     nav_welcome = "Bienvenida",
     nav_tracker = "Monitor de Crecimiento",
     nav_about = "Acerca de",
     nav_medical_info = "Información Médica",
 
     # Hero Section
-    hero_title = "Bienvenido a GrowthGuard",
+    hero_title = "Bienvenido a Casusalatics Growth Guard",
     hero_subtitle = "Rastrea el crecimiento de tu hijo con confianza usando los estándares CDC-OMS",
     hero_cta = "Comenzar Seguimiento",
 
@@ -200,7 +200,7 @@ translations <- list(
     validation_fill_all_fields = "Por favor completa todos los campos requeridos antes de continuar",
 
     # About Section
-    about_title = "Acerca de GrowthGuard",
+    about_title = "Acerca de Casusalatics Growth Guard",
     data_sources_title = "Fuentes de Datos",
     data_sources_desc = "Nuestros gráficos de crecimiento se basan en:",
     privacy_security_title = "Privacidad y Seguridad",

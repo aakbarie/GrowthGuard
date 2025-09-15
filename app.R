@@ -439,7 +439,7 @@ ui <- dashboardPage(
         fluidRow(
           column(8, offset = 2,
             box(
-              title = "About Growth Guard",
+              title = uiOutput("about_title"),
               width = 12,
               status = "info",
               uiOutput("about_md")
@@ -503,6 +503,11 @@ server <- function(input, output, session) {
   # Dynamic header title
   output$app_title <- renderUI({
     span(tr("app_title"))
+  })
+
+  # Dynamic About title
+  output$about_title <- renderUI({
+    span(tr("about_title"))
   })
 
   # Dynamic sidebar menu
@@ -575,6 +580,30 @@ server <- function(input, output, session) {
   })
 
 
+  # Lightweight event logging (tempdir() only)
+  log_event <- function(event_type, lang, user_name = NA_character_) {
+    req <- session$request
+    user_agent <- if (!is.null(req$HTTP_USER_AGENT)) req$HTTP_USER_AGENT else if (!is.null(session$clientData$http_user_agent)) session$clientData$http_user_agent else NA
+    ip <- if (!is.null(req$HTTP_X_FORWARDED_FOR)) req$HTTP_X_FORWARDED_FOR else if (!is.null(req$REMOTE_ADDR)) req$REMOTE_ADDR else NA
+    record <- data.frame(
+      timestamp = as.character(Sys.time()),
+      event = event_type,
+      session_id = if (!is.null(session$token)) session$token else NA,
+      language = lang,
+      user = user_name,
+      ip = ip,
+      user_agent = user_agent,
+      stringsAsFactors = FALSE
+    )
+    path <- file.path(tempdir(), "disclaimer_log.csv")
+    if (!file.exists(path)) {
+      try(utils::write.csv(record, path, row.names = FALSE), silent = TRUE)
+    } else {
+      try(utils::write.table(record, path, sep = ",", col.names = FALSE, row.names = FALSE, append = TRUE), silent = TRUE)
+    }
+  }
+
+
   # Show startup medical disclaimer as a modal (once)
   observeEvent(TRUE, {
     showModal(modalDialog(
@@ -601,6 +630,8 @@ server <- function(input, output, session) {
   observeEvent(input$acknowledge_disclaimer, {
     values$disclaimer_acknowledged <- TRUE
     removeModal()
+    # Log acknowledgement (note: tempdir() on shinyapps.io is ephemeral)
+    log_event("modal_ack", values$current_language)
     showNotification(
       if (values$current_language == "es") {
         "Gracias por reconocer el descargo de responsabilidad médica."
@@ -633,6 +664,9 @@ server <- function(input, output, session) {
         !is.null(input$height_inch) && input$height_inch > 0 &&
         !is.null(input$weight_lbs) && input$weight_lbs > 0 &&
         !is.null(input$dob) && !is.null(input$dov)) {
+
+      # Record consent by name entry
+      log_event("name_consent", values$current_language, input$name)
 
       # Move to step 2
       shinyjs::hide("step1")

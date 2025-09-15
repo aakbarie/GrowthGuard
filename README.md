@@ -1,6 +1,6 @@
-# GrowthGuard
+# Casusalatics Growth Guard
 
-GrowthGuard is an open-source Shiny app from Causalytics Impact that helps caregivers and clinicians visualize child growth using CDC–WHO standards. The app runs entirely without server-side data storage and supports English and Spanish.
+Casusalatics Growth Guard is an open-source Shiny app from Causalytics Impact that helps caregivers and clinicians visualize child growth using CDC–WHO standards. The app runs entirely without server-side data storage and supports English and Spanish.
 
 Repo: https://github.com/aakbarie/GrowthGuard
 
