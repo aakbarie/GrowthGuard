@@ -4,3 +4,19 @@
 .Ruserdata
 GrowthGuard.Rproj
 .DS_Store
+www/*.rds
+
+# R/Shiny deployment
+rsconnect/
+.Renviron
+
+# renv (if used later)
+renv/library/
+renv/staging/
+
+# IDE/editor cruft
+.vscode/
+.idea/
+
+# Local temp/data
+temp/

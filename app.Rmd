@@ -1,0 +1,232 @@
+---
+title: "The Growth Charts for Saudi Children and Adolescents"
+output:
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+runtime: shiny
+resource_files:
+- R/Posts/Growth/grafici7m.R
+- R/Posts/Growth/grafici7f.R
+- R/Posts/Growth/grafici6m.R
+- R/Posts/Growth/grafici6f.R
+- R/Posts/Growth/grafici1m.R
+- R/Posts/Growth/grafici1f.R
+- R/Posts/Growth/grafici2m.R
+- R/Posts/Growth/grafici2f.R
+- R/Posts/Growth/Source/grafici8m.txt
+- R/Posts/Growth/Source/grafici7m.txt
+- R/Posts/Growth/Source/grafici2m.txt
+- R/Posts/Growth/Source/grafici1m.txt
+- R/Posts/Growth/Source/grafici6m.txt
+- R/Posts/Growth/Source/grafici7f.txt
+- R/Posts/Growth/Source/grafici6f.txt
+- R/Posts/Growth/Source/grafici8f.txt
+- R/Posts/Growth/Source/grafici2f.txt
+- R/Posts/Growth/data/mydata7f.rda
+- R/Posts/Growth/data/mydata7m.rda
+- R/Posts/Growth/data/mydata6f.rda
+- R/Posts/Growth/data/mydata6m.rda
+- R/Posts/Growth/data/mydata2f.rda
+- R/Posts/Growth/data/mydata2m.rda
+- R/Posts/Growth/data/mydata1f.rda
+- R/Posts/Growth/data/mydata1m.rda
+- R/Posts/Growth/data/code data.txt
+- global.R
+- R/Posts/Growth/data/hg_60.csv
+- R/Posts/Growth/data/wg_60.csv
+- R/Posts/Growth/wa_60.R
+- R/Posts/Growth/ha_60.R
+- R/Posts/Growth/ha_5.R
+- R/Posts/Growth/wa_5.R
+- R/Posts/Growth/data/wg_5.csv
+- R/Posts/Growth/data/hg_5.csv
+- R/Posts/Growth/data/hg_60.csv
+- R/Posts/Growth/data/wg_60.csv
+---
+
+```{r setup, include=FALSE, message=FALSE}
+library(flexdashboard)
+library(shiny)
+library(shinyWidgets)
+library(tidyverse)
+library(shinydashboard)
+library(lubridate)
+library(zscorer)
+# library(rdrop2)
+library(shinyalert)
+library(rmarkdown)
+```
+
+Column {.sidebar data-width=350}
+-------------------------------------
+
+```{r}
+wellPanel(
+  textInput("name", "Name")
+)
+
+
+wellPanel(
+  splitLayout(
+    cellWidths = c("40%", "30%", "30%"),
+    prettyRadioButtons(
+      inputId = "sex",
+      label = "Sex",
+      choices = c("Male", "Female"),
+      inline = F
+    ),
+    numericInput("height", "Height (cm)",
+                 value = 100, min = 1, max = 250),
+    numericInput("weight", "Weight (kg)",
+                 value = 7.5, min = 1, max = 250)
+  ),
+  splitLayout(
+    dateInput("dob", label="Date of birth:", min = Sys.Date() %m-% years(18),
+          max = Sys.Date(), format = "dd-mm-yyyy", startview = "year",
+          weekstart = 0, language = "en"),
+    dateInput("dov", label="Date of Visit:", min = Sys.Date() %m-% years(18),
+          max = Sys.Date(), format = "dd-mm-yyyy", startview = "year",
+          weekstart = 0, language = "en")
+    
+  ),
+  wellPanel(
+    splitLayout(
+      prettyRadioButtons(
+        inputId = "type",
+        label = "Chart Type",
+        choices = c("Height-Age", "Weight-Age"),
+        inline = F
+      ),
+      prettyRadioButtons(
+        inputId = "org",
+        label = "Chart Org",
+        choices = c("CDC-WHO", "Saudi"),
+        selected = "Saudi",
+        inline = F
+      )
+    )
+  ),
+  wellPanel(
+    br(),
+    actionBttn(
+      inputId = "addPlot",
+      label = "View Growth Chart",
+      color = "primary",
+      style = "material-flat",
+      block = TRUE,
+      size = "md"
+    ),
+    br(),
+    downloadBttn(
+      outputId = "report",
+      label = "Growth Chart Download",
+      color = "warning",
+      style = "material-flat",
+      block = TRUE,
+      size = "md"
+    ),
+    br()
+  )
+)
+
+initialInputs <- isolate(reactiveValuesToList(input))
+observe({
+  inputValues <- reactiveValuesToList(input)
+  initialInputs <<- utils::modifyList(inputValues, initialInputs)
+})
+
+observeEvent(input$reset, {
+  for (id in names(initialInputs)) {
+    value <- initialInputs[[id]]
+    awh <- ""
+    all_data_disp <- ""
+    if (is.null(value)) value <- ""
+    session$sendInputMessage(id, list(value = value))
+  }
+})
+
+```
+
+Row
+-----------------------------------------------------------------------
+
+### Growth Chart
+
+```{r}
+source("www/MygrowthFun.R")
+
+awh <- eventReactive(input$addPlot, {
+  if(input$type == "Weight-Age") {
+    data.frame(months = age(input$dob), weight = input$weight)
+  } else {
+    data.frame(months = age(input$dob), length = input$height)
+  }
+})
+renderPlot({
+  awh <- awh()
+  sex = ifelse(input$sex == "Male", "m", "f")
+  type = ifelse(input$type == "Height-Age", "lac", "wac")
+  MygrowthFun(
+    sex = sex, 
+    name = input$name, 
+    state = input$org,
+    date_visit = as.character(format(as.Date(input$dov), "%d-%m-%Y")),
+    birth_date = as.character(format(as.Date(input$dob), "%d-%m-%Y")), 
+    type = type, 
+    mydataAA = awh)
+})
+```
+
+```{r}
+drop_auth(rdstoken = "www/token.rds")
+observeEvent(input$addPlot, {
+    # Define inputs to save
+  temp <- data.frame(
+    "Date" = as.character(format(as.Date(input$dov), "%d-%m-%Y")),
+    "Name" = input$name, "Age" = age(input$dob),
+    "Sex" = input$sex, "Weight" = input$weight, "Height" = input$height
+  ) %>%
+  rename(
+    "Age (months)" = Age,
+    "Weight (Kg)" = Weight,
+    "Height (cm)" = Height
+  )
+  # Inputs data.frame
+  inputs_data_frame <- temp
+  # Save Inputs
+  write_csv(
+    inputs_data_frame,
+    "data/user_inputs.csv", 
+    append = T
+  )
+  # write out to remote location
+  drop_upload('data/user_inputs.csv', path = "GrowthCharter")
+}) 
+```
+
+```{r}
+output$report <- downloadHandler(
+  #Specify The File Name 
+  filename = function() {
+    paste0("growth chart ", input$name, ".pdf")},
+  content = function(file){
+    # open the format of file which needs to be downloaded ex: pdf, png etc. 
+    pdf(file, width=11, height=8)
+
+    awh <- awh()
+    sex = ifelse(input$sex == "Male", "m", "f")
+    type = ifelse(input$type == "Height-Age", "lac", "wac")
+    MygrowthFun(
+      sex=sex, 
+      name=input$name, 
+      state = input$org,
+      date_visit = as.character(format(as.Date(input$dov), "%d-%m-%Y")),
+      birth_date = as.character(format(as.Date(input$dob), "%d-%m-%Y")),  
+      type=type, mydataAA = awh
+    )
+    dev.off()
+    }
+  )
+```
+

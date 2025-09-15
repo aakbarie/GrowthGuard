@@ -1,4 +1,3 @@
-
 MygrowthFun <- function(
   sex=c("m", "f"), 
   type=c("wlc", "hac", "wsc", "wac", "lac", "bac"), 
@@ -39,12 +38,12 @@ MygrowthFun <- function(
     if(sex == "m") {
       switch(
         type,
-        "lac"	= source(paste(path, "grafici2m.R", sep="")),
+        "lac"	= source(paste(path, "grafici2m.R", sep=""))
       )
     } else {
       switch(
         type,
-        "lac"	= source(paste(path, "grafici2f.R", sep="")),
+        "lac"	= source(paste(path, "grafici2f.R", sep=""))
       )
     }
   }
@@ -52,12 +51,12 @@ MygrowthFun <- function(
     if(sex == "m") {
       switch(
         type,
-        "lac"	= source(paste(path, "grafici7m.R", sep="")),
+        "lac"	= source(paste(path, "grafici7m.R", sep=""))
       )
     } else {
       switch(
         type,
-        "lac"	= source(paste(path, "grafici7f.R", sep="")),
+        "lac"	= source(paste(path, "grafici7f.R", sep=""))
       )
     }
   }

@@ -1,88 +1,86 @@
 # GrowthGuard
 
-**GrowthGuard** is an interactive Shiny application designed to help parents and caregivers track their child's growth using personalized growth charts based on CDC-WHO standards. This user-friendly app allows you to input your child's height, weight, and other relevant data to generate detailed growth charts. The app is designed to be simple enough for anyone to use, with a focus on privacy and ease of access.
+GrowthGuard is an open-source Shiny app from Causalytics Impact that helps caregivers and clinicians visualize child growth using CDC–WHO standards. The app runs entirely without server-side data storage and supports English and Spanish.
 
-![GrowthGuard](https://github.com/aakbarie/GrowthGuard/assets/banner.png) 
+Repo: https://github.com/aakbarie/GrowthGuard
 
 ## Features
 
-- **Personalized Growth Charts**: Create and view growth charts based on the child's data input, adjusted to CDC-WHO standards.
-- **Easy Data Entry**: Input data using height in inches and weight in pounds; the app automatically converts these to centimeters and kilograms.
-- **Download Options**: Easily download the growth data in CSV format and the generated chart as a PDF.
-- **User Privacy**: The app does not store your data on servers, ensuring compliance with privacy and HIPAA regulations.
+- Personalized growth charts: Weight-for-age and Height-for-age, using CDC–WHO datasets
+- Bilingual UI: English and Spanish with dynamic switching
+- Privacy-first: No server-side data storage; processing happens in-session
+- Easy exports: Download CSV (inputs) and PDF (chart)
+- Clear medical disclaimers (educational use only)
 
-## App Preview
+## Quick Start
 
-![App Screenshot](https://github.com/aakbarie/GrowthGuard/assets/app_screenshot.png)
+1) Clone the repository
 
-## Installation
+```bash
+git clone https://github.com/aakbarie/GrowthGuard.git
+cd GrowthGuard
+```
 
-To run the GrowthGuard app locally, follow these steps:
+2) Install dependencies (R 4.2+ recommended)
 
-1. **Clone the Repository:**
+```r
+install.packages(c(
+  "shiny", "shinydashboard", "shinyWidgets",
+  "tidyverse", "lubridate", "shinyjs", "markdown",
+  "shinycssloaders"
+))
+```
 
-   ```bash
-   git clone https://github.com/aakbarie/GrowthGuard.git
-   ```
+3) Run locally
 
-2. **Navigate to the Project Directory:**
+```r
+shiny::runApp()
+```
 
-   ```bash
-   cd GrowthGuard
-   ```
+## Deploy to shinyapps.io
 
-3. **Install Required Packages:**
+```r
+install.packages("rsconnect")
+rsconnect::setAccountInfo(name = "YOUR_NAME", token = "YOUR_TOKEN", secret = "YOUR_SECRET")
+rsconnect::deployApp(appDir = ".", appName = "growthguard", account = "YOUR_NAME")
+```
 
-   Ensure you have R and RStudio installed. Then, install the required R packages using the following command:
+Use `rsconnect::showLogs(..., streaming = TRUE)` to tail logs if needed.
 
-   ```r
-   # Install required packages
-   install.packages(c("shiny", "shinydashboard", "shinyWidgets", "tidyverse", "lubridate"))
-   ```
+## Project Structure
 
-4. **Run the App:**
+```
+R/                # App logic and helpers
+  MygrowthFun.R   # Orchestrates plot generation; sources grafici*.R
+  Posts/Growth/   # Plot scripts + .rda data used by grafici*.R
+www/              # Static assets (CSS, images)
+content/          # Markdown content (About, Medical Info) in en/es
+app.R             # UI + server
+translations.R    # i18n dictionary (en/es)
+global.R          # age() helpers
+```
 
-   Open `app.R` in RStudio and click "Run App" or use the command below in your R console:
+## Medical Disclaimer (Important)
 
-   ```r
-   shiny::runApp('app.R')
-   ```
+This tool is for informational and educational purposes only and is not a medical device. It does not diagnose, treat, cure, or prevent any condition. Always consult a qualified healthcare professional for medical advice.
 
-## Usage Guide
+## Data Sources and Attribution
 
-1. **Home Tab**: Provides an overview of the app and its functionality, including input expectations (height in inches and weight in pounds).
-2. **Growth Chart Tab**:
-   - Enter the child's name, sex, height, weight, date of birth, and date of visit.
-   - Click "View Growth Chart" to generate a personalized growth chart.
-   - Download the data and chart using the provided buttons for personal records.
+- CDC Growth Charts (2000)
+- WHO Growth Standards (2006)
 
-## Screenshots
-
-### Home Page
-
-![Home Page](https://github.com/aakbarie/GrowthGuard/assets/home_screenshot.png)
-
-### Growth Chart Page
-
-![Growth Chart](https://github.com/aakbarie/GrowthGuard/assets/growth_chart_screenshot.png)
+Confirm redistribution rights for datasets before publishing modified versions. If redistribution is restricted, provide scripts to regenerate `.rda` files from public sources rather than committing the binaries.
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request or open an Issue for any feature requests or bug reports.
+Contributions are welcome! Open issues/PRs for bugs or enhancements. Please keep PRs focused and include a brief rationale.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- **R Shiny**: A framework for building interactive web applications in R.
-- **CDC-WHO Growth Standards**: The app utilizes growth standards provided by CDC and WHO for accurate growth tracking.
+MIT © Causalytics Impact — see [LICENSE](LICENSE).
 
 ## Contact
 
-For any questions or suggestions, please contact [Akbar](mailto:akbar.esfahani@gmail.com).
+https://causalyticsimpact.com/
 
----
-
-**GrowthGuard** - Helping caregivers track growth, one chart at a time.
+For questions: open a GitHub issue or contact the maintainers.
