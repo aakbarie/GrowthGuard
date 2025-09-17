@@ -33,9 +33,10 @@ source("R/MygrowthFun.R")  # Source plotting orchestration function from R/
 
 # Define the UI for the Shiny Dashboard
 ui <- dashboardPage(
+    skin = "black",
     dashboardHeader(
       title = uiOutput("app_title"),
-      titleWidth = 300,
+      titleWidth = 280,
       # GitHub link in navbar
       tags$li(class = "dropdown",
         a(href = "https://github.com/aakbarie/GrowthGuard", target = "_blank", class = "github-link",
@@ -56,7 +57,7 @@ ui <- dashboardPage(
       )
     ),
     dashboardSidebar(
-      width = 300,
+      width = 280,
       sidebarMenuOutput("sidebar")
     ),
     dashboardBody(
@@ -73,6 +74,7 @@ ui <- dashboardPage(
         });
       "))
     ),
+    br(),
     tabItems(
       # Welcome Page Tab
       tabItem(
